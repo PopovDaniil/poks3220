@@ -20,11 +20,7 @@
         <td>{{ $category->id }}</td>
         <td>{{ $category->name }}</td>
         <td><a href="/categories/{{ $category->id }}">[e]</a></td>
-        <td>
-            <form action="/categories/{{ $category->id }}" method="DELETE">
-                <button type="submit">x</button>
-            </form>
-        </td>
+        <td><a href="/categories/{{ $category->id }}/delete">[x]</a></td>
     </tr>
     @endforeach
 </table>

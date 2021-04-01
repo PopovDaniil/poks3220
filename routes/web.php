@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,9 @@ Route::prefix('products')->group(function () {
     );
 
     Route::get('add', function () {
-        return view('products_form');
+        $categories = Category::all();
+        return view('products_form', 
+        ['categories' => $categories]);
     });
 
     Route::post(
@@ -54,8 +57,7 @@ Route::prefix('products')->group(function () {
 
 
 Route::prefix('categories')->group(function () {
-    Route::get(
-        '/',
+    Route::get('',
         'App\Http\Controllers\CategoryController@list'
     );
 

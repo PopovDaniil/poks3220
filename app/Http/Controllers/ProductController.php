@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,10 +16,17 @@ class ProductController extends Controller
     }
 
     public function add(Request $request) {
-        Product::create([
+        $product = Product::create([
             'name' => $request->input('name')
         ]);
-        return redirect('/products');
+
+        $category = Category::find($request->input('category_id'));
+        $product->category()->associate($category);
+        $product->save();
+
+        print_r($product);
+
+        // return redirect('/products');
     }
 
     public function edit($id) {

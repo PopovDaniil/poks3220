@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="products">Товары</a>
+    <a href="/products">Товары</a>
+    <a href="/categories">Категории</a>
 </body>
 </html>

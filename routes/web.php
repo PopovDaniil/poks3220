@@ -47,3 +47,15 @@ Route::get('/categories',
 Route::get('/categories/add', function () {
     return view('categories_form');
 });
+
+Route::post('/categories/add',
+'App\Http\Controllers\CategoryController@add');
+
+Route::get('/categories/{id}',
+'App\Http\Controllers\CategoryController@edit');
+
+Route::post('/categories/{id}',
+'App\Http\Controllers\CategoryController@save');
+
+Route::get('/categories/{id}/delete',
+'App\Http\Controllers\CategoryController@delete');

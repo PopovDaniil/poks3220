@@ -52,31 +52,37 @@ Route::prefix('products')->group(function () {
     });
 });
 
-Route::get(
-    '/categories',
-    'App\Http\Controllers\CategoryController@list'
-);
 
-Route::get('/categories/add', function () {
-    return view('categories_form');
+Route::prefix('categories')->group(function () {
+    Route::get(
+        '/',
+        'App\Http\Controllers\CategoryController@list'
+    );
+
+    Route::get('/add', function () {
+        return view('categories_form');
+    });
+
+    Route::post(
+        '/add',
+        'App\Http\Controllers\CategoryController@add'
+    );
+
+    Route::prefix('{id}')->where(['id' => '[0-9]+'])->group(function () {
+
+        Route::get(
+            '',
+            'App\Http\Controllers\CategoryController@edit'
+        );
+
+        Route::post(
+            '',
+            'App\Http\Controllers\CategoryController@save'
+        );
+
+        Route::get(
+            'delete',
+            'App\Http\Controllers\CategoryController@delete'
+        );
+    });
 });
-
-Route::post(
-    '/categories/add',
-    'App\Http\Controllers\CategoryController@add'
-);
-
-Route::get(
-    '/categories/{id}',
-    'App\Http\Controllers\CategoryController@edit'
-);
-
-Route::post(
-    '/categories/{id}',
-    'App\Http\Controllers\CategoryController@save'
-);
-
-Route::get(
-    '/categories/{id}/delete',
-    'App\Http\Controllers\CategoryController@delete'
-);

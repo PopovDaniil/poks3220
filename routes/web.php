@@ -17,45 +17,66 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/products',
-'App\Http\Controllers\ProductController@list');
+Route::prefix('products')->group(function () {
 
-Route::get('/products/add', function () {
-    return view('products_form');
+    Route::get(
+        '',
+        'App\Http\Controllers\ProductController@list'
+    );
+
+    Route::get('add', function () {
+        return view('products_form');
+    });
+
+    Route::post(
+        'add',
+        'App\Http\Controllers\ProductController@add'
+    );
+
+    Route::prefix('{id}')->where(['id' => '[0-9]+'])->group(function () {
+
+        Route::get(
+            '',
+            'App\Http\Controllers\ProductController@edit'
+        );
+
+        Route::post(
+            '',
+            'App\Http\Controllers\ProductController@save'
+        );
+
+        Route::get(
+            'delete',
+            'App\Http\Controllers\ProductController@delete'
+        );
+    });
 });
 
-Route::post('/products/add',
-'App\Http\Controllers\ProductController@add');
-
-Route::get('/products/{id}',
-'App\Http\Controllers\ProductController@edit');
-
-Route::post('/products/{id}',
-'App\Http\Controllers\ProductController@save');
-
-Route::get('products/{id}/delete',
-'App\Http\Controllers\ProductController@delete');
-
-Route::get('/products',
-'App\Http\Controllers\ProductController@list');
-
-
-
-Route::get('/categories',
-'App\Http\Controllers\CategoryController@list');
+Route::get(
+    '/categories',
+    'App\Http\Controllers\CategoryController@list'
+);
 
 Route::get('/categories/add', function () {
     return view('categories_form');
 });
 
-Route::post('/categories/add',
-'App\Http\Controllers\CategoryController@add');
+Route::post(
+    '/categories/add',
+    'App\Http\Controllers\CategoryController@add'
+);
 
-Route::get('/categories/{id}',
-'App\Http\Controllers\CategoryController@edit');
+Route::get(
+    '/categories/{id}',
+    'App\Http\Controllers\CategoryController@edit'
+);
 
-Route::post('/categories/{id}',
-'App\Http\Controllers\CategoryController@save');
+Route::post(
+    '/categories/{id}',
+    'App\Http\Controllers\CategoryController@save'
+);
 
-Route::get('/categories/{id}/delete',
-'App\Http\Controllers\CategoryController@delete');
+Route::get(
+    '/categories/{id}/delete',
+    'App\Http\Controllers\CategoryController@delete'
+);

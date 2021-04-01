@@ -17,7 +17,23 @@ class ProductController extends Controller
         Product::create([
             'name' => $request->input('name')
         ]);
-        print_r($_POST);
-        echo "test add";
+        return redirect('/products');
+    }
+
+    public function edit($id) {
+        $product = Product::find($id);
+        return view("products_form", ['product' => $product]);
+    }
+
+    public function save($id, Request $request) {
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->save();
+        return redirect('/products');
+    }
+
+    public function delete($id) {
+        Product::destroy($id);
+        return redirect("/products");
     }
 }

@@ -20,11 +20,7 @@
         <td>{{ $product->id }}</td>
         <td>{{ $product->name }}</td>
         <td><a href="/products/{{ $product->id }}">[e]</a></td>
-        <td>
-            <form action="/products/{{ $product->id }}" method="DELETE">
-                <button type="submit">x</button>
-            </form>
-        </td>
+        <td><a href="/products/{{ $product->id }}/delete">[x]</a></td>
     </tr>
     @endforeach
 </table>
